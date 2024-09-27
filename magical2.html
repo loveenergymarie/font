@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>オラクルカードを引く</title>
+
+    <!-- Google Fontsの読み込み -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rounded+Mplus+1c:wght@700&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kaisei+Opti:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hina+Mincho&display=swap" rel="stylesheet">
+    
+    <style>
+        @font-face {
+            font-family: 'Cinecaption';
+            src: url('https://raw.githubusercontent.com/loveenergymarie/font/main/cinecaption226.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Yawamin';
+            src: url('https://raw.githubusercontent.com/loveenergymarie/font/main/yawamin.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Cinderella';
+            src: url('https://raw.githubusercontent.com/loveenergymarie/font/main/Cinderella.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Cinderella Bold';
+            src: url('https://raw.githubusercontent.com/loveenergymarie/font/main/Cinderella-Bold.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* 背景とテキストスタイル */
+        body {
+            font-family: 'Cinecaption', 'Yawamin', 'Cinderella', 'Cinderella Bold', 'Commissioner', 'Klee One', 'Kiwi Maru', 'Hina Mincho', 'Kaisei Opti', 'Kaisei Tokumin', 'Shippori Mincho B1', sans-serif;
+            text-align: center;
+            background-image: url('https://i.imgur.com/QWRUWhd.png');
+            background-size: cover;
+            background-position: center;
+            padding-top: 38px;
+            background-repeat: no-repeat;
+        }
+
+        /* ロゴ */
+        .logo {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 75px;
+        }
+
+        /* タイトル */
+        h1 {
+            color: #ffbbaf;
+            font-weight: 1000;
+            line-height: 0.55;
+            margin: 9px;
+            font-family: 'Commissioner', sans-serif;
+        }
+
+        .title-line1 {
+            font-size: 15px;
+        }
+
+        .title-line2 {
+            font-size: 15px;
+        }
+
+        /* スピリチュアル★メッセージカードタイトル */
+        .wave-title {
+            font-family: 'Yawamin', sans-serif;
+            font-size: 33px;
+            letter-spacing: 4.4px;
+            color: #ffca43;
+            line-height: 0.055;
+            margin: 37px 0 28px 0;
+        }
+
+        .wave-title .heart {
+            color: #c6481c;
+        }
+
+        /* 説明テキスト */
+        p {
+            font-size: 15px;
+            color: white;
+            margin-bottom: 8px;
+            font-family: 'Kiwi Maru', sans-serif;
+        }
+
+        /* ボタン */
+        button {
+            width: 133px;
+            height: 55px;
+            background-color: #ebd893;
+            color: #473906;
+            border: none;
+            border-radius: 17.7px;
+            cursor: pointer;
+            font-size: 18px;
+            font-family: 'Rounded Mplus 1c', sans-serif;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0s ease, box-shadow 0s ease;
+            box-shadow: 0px 1px 1px 2px rgba(0, 0, 0, 4);
+        }
+
+        button:hover {
+            transform: translateY(0px);
+            box-shadow: 0 0px 0px rgba(0, 0, 0, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0px);
+            box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        /* カード表示の神秘的なアニメーション */
+        @keyframes mysticalFadeIn {
+            0% {
+                opacity: 0;
+                transform: rotateY(133deg) scale(0.33); /* 回転しながら小さく現れる */
+            }
+            100% {
+                opacity: 1;
+                transform: rotateY(0deg) scale(1); /* 元のサイズで表示 */
+            }
+        }
+
+        /* カード裏面のフレーム（淵）を光らせるエフェクト */
+        .card-back-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 24px; /* カードの角に沿って光る */
+            box-shadow: 0 0 0px rgba(255, 255, 255, 8), 0 0 0px rgba(255, 255, 255, 8); /* 光るフレーム */
+            pointer-events: none;
+            opacity: 0.5;
+            animation: glowEffect 4s infinite ease-in-out; /* 光のアニメーション */
+            z-index: 1; /* フレームをカード上に表示 */
+        }
+
+        /* 光のエフェクトのアニメーション */
+        @keyframes glowEffect {
+            0% {
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.4), 0 0 19px rgba(255, 255, 255, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 55px rgba(255, 255, 255, 0.7);
+            }
+            100% {
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.4), 0 0 19px rgba(255, 255, 255, 0.2);
+            }
+        }
+        
+        /* キラキラエフェクトのスタイル */
+        .sparkle-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .sparkle-effect div {
+            position: absolute;
+            background: rgba(255, 255, 255, 1);
+            border-radius: 50%;
+            width: 1.33px;
+            height: 1.33px;
+            animation: sparkleAnimation 1.9s infinite ease-in-out;
+        }
+
+        /* キラキラのアニメーション */
+        @keyframes sparkleAnimation {
+            0% {
+                transform: scale(0.5);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0.5);
+                opacity: 0.5;
+            }
+        }
+
+        /* カードのサイズを調整 */
+        .card-container {
+            display: none;
+            margin-top: 37px;
+            position: relative;
+        }
+
+        .card {
+            width: 800px;
+            height: auto;
+            margin: 0 auto;
+            position: relative;
+            max-width: 58%;
+            margin-bottom: 0px;
+            aspect-ratio: 0 / 0;
+        }
+
+        .card-back {
+            width: 100%;
+            border-radius: 22px;
+        }
+
+        .card-front {
+            width: 100%;
+            display: none;
+            border-radius: 22px;
+            animation: mysticalFadeIn 1.5s ease;
+        }
+
+        .tap-message {
+            font-family: 'Kiwi Maru', sans-serif;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 19px;
+            font-weight: bold;
+            display: none;
+            z-index: 2;
+        }
+
+        #againMessage {
+            font-family: 'Kiwi Maru', sans-serif;
+            font-size: 20px;
+            color: white;
+            margin-top: 15px;
+            display: none; /* 最初は非表示 */
+            animation: zoomIn 5.5s ease forwards; /* アニメーションの方向を明示 */
+        }
+
+        @keyframes zoomIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) translateZ(-100px); /* 小さくて遠くに見える */
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateZ(0); /* 徐々に大きくなる */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ロゴ -->
+    <img src="https://i.imgur.com/opSqlKv.png" alt="ロゴ" class="logo" style="display:block; margin: 0 auto;">
+
+    <!-- タイトル -->
+    <h1 class="title-line1">LOVE ENERGY</h1>
+    <h1 class="title-line2">Awaken & Tune Project</h1>
+
+    <!-- 波動アップ♬ -->
+    <h1 class="wave-title">スピリチュアル</h1>
+    <h1 class="wave-title">★メッセージカード★</h1>
+
+    <!-- 説明文 -->
+    <p id="instruction">ボタンを押してカードを引いてね</p>
+
+    <!-- カードを引くボタン -->
+    <button id="drawCardButton" onclick="drawCard()">カードを引く</button>
+
+    <!-- カードの裏面と表面 -->
+    <div class="card-container" id="cardContainer">
+        <div class="card" id="card">
+            <!-- 光るフレーム部分 -->
+            <div class="card-back-glow"></div> <!-- 光るフレームを表示 -->
+            <!-- 裏面 -->
+            <img src="https://i.imgur.com/EsYvMrq.png" alt="カードの裏面" class="card-back" id="cardBack">
+            <!-- 表面 -->
+            <img src="" alt="カードの表面" class="card-front" id="cardFront">
+            <div class="tap-message" id="tapMessage">タップしてね</div>
+        </div>
+    </div>
+
+    <!-- また来てね☆ メッセージ -->
+    <div id="againMessage">ありがとう♡また来てね</div>
+
+    <script>
+    const cards = [
+        'https://i.imgur.com/6NHLObk.png',  // 1枚目の画像URL
+        'https://i.imgur.com/Wr7TbUg.png',  // 2枚目の画像URL
+        'https://i.imgur.com/23Y2Ifb.png',  // 3枚目の画像URL
+    ];
+
+    let cardCount = 0;
+    const drawCardButton = document.getElementById('drawCardButton');
+    const cardContainer = document.getElementById('cardContainer');
+    const cardBack = document.getElementById('cardBack');
+    const cardFront = document.getElementById('cardFront');
+    const tapMessage = document.getElementById('tapMessage');
+    const instruction = document.getElementById('instruction');
+    const againMessage = document.getElementById('againMessage');
+    const usedCards = new Set();  // 使用されたカードを追跡
+
+    function drawCard() {
+        cardContainer.style.display = 'block'; 
+        cardBack.style.display = 'block';  
+        tapMessage.style.display = 'block';  
+
+        // フレームが光るエフェクトを表示
+        const cardBackGlow = document.querySelector('.card-back-glow');
+        cardBackGlow.style.display = 'block';  
+
+        drawCardButton.style.display = 'none';
+        instruction.style.display = 'none';
+    }
+    
+    function showSparkleEffect() {
+        const sparkleContainer = document.createElement('div');
+        sparkleContainer.classList.add('sparkle-effect');
+        cardContainer.appendChild(sparkleContainer);
+
+        for (let i = 0; i < 44; i++) {  // キラキラの数を増やすことができます
+            const sparkle = document.createElement('div');
+            sparkle.style.top = `${Math.random() * 100}%`;
+            sparkle.style.left = `${Math.random() * 100}%`;
+            sparkle.style.animationDelay = `${Math.random() * 2}s`; // ランダムな遅延を設定
+            sparkleContainer.appendChild(sparkle);
+        }
+
+        setTimeout(() => {
+            sparkleContainer.remove();  // 一定時間後にキラキラを削除
+        }, 10000);  // 5秒後に消える
+    }
+
+    cardContainer.addEventListener('click', function() {
+        if (cardCount < 3) {
+            showSparkleEffect();  // キラキラエフェクトを表示
+
+            // 裏面とフレームを非表示にする
+            const cardBackGlow = document.querySelector('.card-back-glow');
+            cardBackGlow.style.display = 'none';  
+            cardBack.style.display = 'none';
+
+            let randomIndex;
+            // 使用されたことのないカードが選ばれるまでループ
+            do {
+                randomIndex = Math.floor(Math.random() * cards.length);
+            } while (usedCards.has(randomIndex));
+
+            usedCards.add(randomIndex);  // 使用済みカードを追跡
+            
+            const selectedCard = cards[randomIndex];
+            cardFront.src = selectedCard;
+
+            cardFront.style.animation = 'none';
+            setTimeout(() => {
+                cardFront.style.animation = 'mysticalFadeIn 1.5s ease';
+            }, 0);
+
+            cardFront.style.display = 'block';
+            tapMessage.style.display = 'none';
+            cardCount++;
+
+            // 「また来てね☆」メッセージのアニメーション処理
+            if (cardCount === 3) {
+                againMessage.style.display = 'block';
+                againMessage.style.animation = 'zoomIn 4s ease';  // アニメーション
+            }
+        }
+    });
+    </script>
+</body>
+</html>
